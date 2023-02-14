@@ -43,7 +43,8 @@ class StreamingRepositoryTest extends BaseTest {
   @Test
   @DisplayName("Given brand eg when finding products then brand should be initialize")
   void test3() {
-    List<Product> products = myService.list("Product 1", NamedEntityGraph.loading(Product.BRAND_EG));
+    List<Product> products =
+            myService.list("Product 1", NamedEntityGraph.loading(Product.BRAND_EG));
     assertThat(products).isNotEmpty();
     for (Product product : products) {
       assertThat(Hibernate.isInitialized(product.getBrand())).isTrue();
@@ -53,6 +54,7 @@ class StreamingRepositoryTest extends BaseTest {
   interface ProductRepository extends EntityGraphRepository<Product, Long> {
 
     Stream<Product> findByName(String name);
+
     Stream<Product> findByName(String name, EntityGraph entityGraph);
   }
 
